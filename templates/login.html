@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Great Computer Solutions - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
+    <!-- Logo / Header -->
+    <div class="text-center mb-6">
+      <div class="mx-auto w-16 h-16 bg-indigo-600 text-white flex items-center justify-center rounded-full text-2xl font-bold shadow-md">
+        G
+      </div>
+      <h1 class="mt-4 text-2xl font-bold text-gray-800">Great Computer Solutions</h1>
+      <p class="text-gray-500 text-sm">Secure Login</p>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="mb-4 p-4 rounded {{ 'bg-green-100 text-green-800' if category == 'success' else 'bg-red-100 text-red-800' }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <!-- Login Form -->
+    <form action="/login" method="POST">
+        {{ form.hidden_tag() }}
+        
+      <div>
+        {{ form.email.label(for="email", class="block text-sm font-medium text-gray-600") }}
+        {{ form.email(id="email", class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 focus:border-indigo-500 focus:ring focus:ring-indigo-200 outline-none") }}
+        
+        {% if form.email.errors %}
+          <p class="text-red-500 text-xs mt-1">{{ form.email.errors[0] }}</p>
+        {% endif %}
+      </div>
+     
+      <div>
+        {{ form.password.label(for="password", class="block text-sm font-medium text-gray-600") }}
+        {{ form.password(id="password", class="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 focus:border-indigo-500 focus:ring focus:ring-indigo-200 outline-none") }}
+        
+        {% if form.password.errors %}
+          <p class="text-red-500 text-xs mt-1">{{ form.password.errors[0] }}</p>
+        {% endif %}
+      </div>
+       
+      <!-- Options -->
+      <div class="flex items-center justify-between text-sm">
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
+          <span class="text-gray-600">Remember me</span>
+        </label>
+        <a href="#" class="text-indigo-600 hover:underline">Forgot Password?</a>
+      </div>
+
+      <!-- Button -->
+      <div>
+        {{ form.submit(class="w-full rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 focus:ring focus:ring-indigo-300") }}
+      </div>  
+    </form>
+
+    <!-- Footer -->
+    <p class="mt-6 text-center text-sm text-gray-500">
+      New to Great Computer Solutions?
+      <a href="#" class="text-indigo-600 font-medium hover:underline">Create an account</a>
+    </p>
+  </div>
+</body>
+</html>
+
+
+
+
+
