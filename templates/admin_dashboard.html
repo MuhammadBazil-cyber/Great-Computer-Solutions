@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+<head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <h2>Registered Users</h2>
+    <table border="1">
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Is Admin</th>
+            <th>Course</th>
+            <th>Credits</th>    
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.is_admin }}</td>
+            <td>{{ user.course }}</td>
+            <td>{{ user.credits }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

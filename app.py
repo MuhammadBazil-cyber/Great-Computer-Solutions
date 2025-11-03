@@ -96,7 +96,13 @@ def admin_dashboard():
     if not session.get('logged_in') or session.get('is_admin') != 1:
         flash('Unauthorized access', 'danger')
         return redirect(url_for('login'))
-    return render_template('admin_dashboard.html')
+    # grabing all users from database to show in admin dashboard
+    else:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # <-- FIXED
+        cursor.execute('SELECT * FROM user')
+        users = cursor.fetchall()
+        cursor.close()
+        return render_template('admin_dashboard.html', users=users)
 
 @app.route('/GCS1')
 def home():
