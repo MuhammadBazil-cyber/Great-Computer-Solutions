@@ -1,0 +1,3 @@
+Google_recaptcha_site_key = "6LeJjCssAAAAAGO0iqxd1jv2_DJ_SJaJcS2J4ADc"
+Google_recaptcha_secret_key = "6LeJjCssAAAAABDBNwJVcTRXZuHzCoAa5fp5xaEU"
+Google_recaptcha_version = "v3"

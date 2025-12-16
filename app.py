@@ -1,11 +1,17 @@
+import requests
 from flask import Flask, flash, redirect, render_template, request, session, url_for    
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, ValidationError
 import bcrypt
+from flask import request
 from flask_mysqldb import MySQL
 import MySQLdb
+# importing the recaptcha keys from environmentV.py
+from environmentV import Google_recaptcha_site_key, Google_recaptcha_secret_key
 # from functools import wraps # not used currently but can be useful for decorators
+
+url = "https://www.google.com/recaptcha/api/siteverify"
 
 app = Flask(__name__)
 
@@ -62,6 +68,19 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        secret_response = request.form.get('g-recaptcha-response')
+        # print(secret_response)
+        # Here you would typically verify the reCAPTCHA response with Google's API
+        verify_response = requests.post(url=f'{url}?secret={Google_recaptcha_secret_key}&response={secret_response}').json()
+        print(verify_response)
+
+        if not verify_response['success'] or verify_response['score'] < 0.5:
+            flash('reCAPTCHA verification failed. Please try again.', 'danger')
+            return redirect(url_for('login'))
+        else:
+            flash('reCAPTCHA verification successful.', 'success')
+            print("reCAPTCHA verification successful.")
+        
         email = form.email.data
         password = form.password.data
 
@@ -84,7 +103,7 @@ def login():
         else:
             flash('Invalid email or password', 'danger')
             return redirect(url_for('login'))
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, site_key=Google_recaptcha_site_key)
 
 # In the context of the if not session.get('logged_in') check, 
 # a None return value (when the key is missing) evaluates to False in Python, 

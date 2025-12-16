@@ -26,7 +26,7 @@
       {% endif %}
     {% endwith %}
     <!-- Login Form -->
-    <form action="/login" method="POST">
+    <form action="/login" method="POST" id="login-form">
         {{ form.hidden_tag() }}
         
       <div>
@@ -58,7 +58,15 @@
 
       <!-- Button -->
       <div>
-        {{ form.submit(class="w-full rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 focus:ring focus:ring-indigo-300") }}
+      <button 
+        type="submit"
+        class="g-recaptcha w-full rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 focus:ring focus:ring-indigo-300"
+        data-sitekey="{{ site_key }}" 
+        data-callback='onSubmit' 
+        data-action='submit'>
+        login
+      </button>
+
       </div>  
     </form>
 
@@ -68,7 +76,16 @@
       <a href="#" class="text-indigo-600 font-medium hover:underline">Create an account</a>
     </p>
   </div>
-</body>
+
+  <script>
+    function onSubmit(token) {
+      document.getElementById("login-form").submit();
+    }
+  </script>
+
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+
+  </body>
 </html>
 
 
