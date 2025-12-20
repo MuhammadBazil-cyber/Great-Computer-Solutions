@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        label, input {
+            margin: 10px 0;
+            border: solid black 3px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Update Profile</h1>
+    <hr>
+    <p>Update your profile information below:</p>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li style = "border: solid black 3px; background-color: lightgreen;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <hr>
+    <form action ="/profile" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{user.name}}" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{user.email}}" required>
+        <br>
+        <label for="course">Course:</label>
+        <input type="text" id="course" name="course" value="{{user.course}}" required>
+        <br>
+        <label for="credits">Credits:</label>
+        <input type="number" id="credits" name="credits" value="{{user.credits}}" required>
+        <br>
+        <input type="password" name="password" value="{{user.password}}" placeholder="New password">
+        <br>
+        <hr>
+        <input type="submit" value="Update Profile">
+        <br>
+        <hr>
+        <a href="{{ url_for('home') }}">Return to Home</a>
+        <br>
+        <hr>
+        <a href="{{ url_for('login') }}">Logout</a>
+    </form>
+</body>
+</html>

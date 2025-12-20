@@ -1,0 +1,57 @@
+nav > ul > li > a {
+  text-decoration: none;
+}
+
+header {
+  text-align: center;
+  background-color: #666262;
+}
+
+nav > ul {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+/* body {
+  background-color: #45828F;
+} */
+@media screen and (orientation: landscape) {
+    
+header > h1 {
+  font-family: "Brush Script MT", cursive;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+}
+body {
+  background-color: white;
+      }   
+}
+
+footer {
+  background-color: #666262;
+}
+/* .circle
+{
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fills the circle */
+  width: 200px; /* Set the desired width */
+  height: 200px; /* Set the desired height */
+} */
+
+@media screen and (orientation: portrait) 
+{
+    body {
+  background-color: darkgray;
+      }
+}
+    .circle
+{
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fills the circle */
+  width: 200px; /* Set the desired width */
+  height: 200px; /* Set the desired height */
+}}

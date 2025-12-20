@@ -7,6 +7,15 @@
 <head>
 <body>
     <h1>Admin Dashboard</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li style = "border: solid black 3px; background-color: lightgreen;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <h2>Registered Users</h2>
     <table border="1">
         <tr>
@@ -28,5 +37,6 @@
         </tr>
         {% endfor %}
     </table>
+    <a href="{{ url_for('login') }}">Logout</a>
 </body>
 </html>

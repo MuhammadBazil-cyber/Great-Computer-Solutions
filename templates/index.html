@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +27,10 @@
             >
           </li>
           <li>
-            <a href="GCS1.html">Home</a>
+            <a href="{{ url_for('home') }}">Home</a>
+          </li>
+          <li>
+            <a href="{{ url_for('profile') }}">Profile</a>
           </li>
           <li>
             <a href="About.html">About</a>
@@ -43,7 +45,10 @@
 
         <ul>       
           <li class="hide">
-            <a href="GCS1.html">Home</a>
+            <a href="{{ url_for('home') }}">Home</a>
+          </li>
+          <li class="hide">
+            <a href="{{ url_for('profile') }}">Profile</a>
           </li>
           <li class="hide">
             <a href="About.html">About</a>
@@ -68,6 +73,15 @@ Heroes, Cover, and Footers used. Copy pasted code from
 bootstraps developer options inspect feature. -->
     <main>
       <div class="px-4 pt-5 my-5 text-center border-bottom">
+          {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  <ul>
+                      {% for message in messages %}
+                          <li style = "border: solid black 3px; background-color: lightgreen;">{{ message }}</li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+          {% endwith %}
         <h1 class="display-4 fw-bold text-body-emphasis" id="bazil">
           M.Bazil.gcs!
         </h1>
@@ -104,7 +118,7 @@ bootstraps developer options inspect feature. -->
         <footer class="py-3 my-4">
           <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item">
-              <a href="#" class="nav-link px-2 text-body-secondary">Home</a>
+              <a href="{{ url_for('home') }}" class="nav-link px-2 text-body-secondary">Home</a>
             </li>
             <li class="nav-item">
               <a href="About.html" class="nav-link px-2 text-body-secondary"

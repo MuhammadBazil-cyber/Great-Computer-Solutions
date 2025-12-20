@@ -123,9 +123,41 @@ def admin_dashboard():
         cursor.close()
         return render_template('admin_dashboard.html', users=users)
 
-@app.route('/GCS1')
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    # session.get('logged_in') # This is a placeholder for the actual session check logic
+    # It gets the value of the key 'logged_in' from the session dictionary and returns None if the key is not found
+    # The get method of session returns None if the key is not found, which is treated as False in a boolean context.
+    # if user is logged in then session.get('logged_in') is True else None
+    if not session.get('logged_in'):
+        flash('Unauthorized access', 'danger')
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        # Handle form submission for profile update
+        name = request.form['name']
+        email = request.form['email']
+        course = request.form['course']
+        credits = request.form['credits']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE user SET name = %s, email = %s, course = %s, credits = %s WHERE id = %s', 
+        (name, email, course, credits, session['user_id']))
+        mysql.connection.commit()
+        cursor.execute('SELECT * FROM user WHERE id = %s', (session['user_id'],))
+        user = cursor.fetchone()
+        cursor.close()
+        flash('Profile updated successfully', 'success')
+        return render_template('profile.html', user=user)
+    else:
+        # fetching user data from database to show in profile page 
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM user WHERE id = %s', (session['user_id'],))
+        user = cursor.fetchone()
+        cursor.close()
+        return render_template('profile.html', user=user)
+    
+@app.route('/index')
 def home():
-    return render_template('GCS1.html')
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)            
